@@ -1,6 +1,6 @@
 ---
-title: "test"
-author: "AN DoYeon"
+title: "R을 활용한 영화 평점 예측"
+author: "Doyeon An"
 date: '2019 10 29 '
 output: html_document
 ---
@@ -9,21 +9,30 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE,comment=NA)
 ```
 
-# Movie Score Prediction
+## Movie Score Prediction
+데이터셋: IMDB Dataset
+  출처: IMDb Datasets
+
+## 목차
+1. 데이터 분석
+  데이터 전처리, Correlation Heatmap
+2. 머신러닝
+  다중 선형 회귀, 회귀 트리, 모델 트리, 랜덤 포레스트
+3. 결론
 
 
-## 1. 데이터 확인
+## 1. 데이터 분석
+### 데이터 확인
 ```{r}
-USA_movie <- read.csv("USA_movie.csv")
+USA_movie <- read.csv("movie.csv/USA_movie.csv")
 movie <- USA_movie
 str(movie)
 summary(movie)
 
 ```
 
-## 2. 데이터 전처리
-
-### 결측치 처리 => 평균으로 대치
+### 데이터 전처리
+#### 결측치 처리 => 평균으로 대치
 ```{r}
 sum(is.na(movie))
 1334 / (3807*28)
@@ -77,8 +86,8 @@ movie$aspect_ratio <- ifelse(is.na(movie$aspect_ratio), avg_aspect_ratio, movie$
 
 
 
-## 3. 상관 관계 파악
-### 1) IMDB 분포도
+### 상관 관계 파악
+#### 1) IMDB 분포도
 ```{r}
 library(ggplot2)
 ggplot(data = movie, mapping = aes(x = imdb_score)) +
@@ -88,7 +97,7 @@ ggplot(data = movie, mapping = aes(x = imdb_score)) +
 ```
 
 
-### 2) Correlation Heatmap
+#### 2) Correlation Heatmap
  변수들 간의 상관 관계 파악
 
 
@@ -161,7 +170,7 @@ print(ggheatmap)
 ```
 
 
-### 3) IMDB score와 관련 있는 변수들로 이루어진 데이터 프레임 생성
+#### IMDB score와 관련 있는 변수들로 이루어진 데이터 프레임 생성
 ```{r}
 movie <- movie_data[c("facenumber_in_poster", "director_facebook_likes", "duration", "imdb_score",
                       "actor_1_facebook_likes", "other_actors_facebook_likes", "movie_facebook_likes",
@@ -172,7 +181,7 @@ movie <- movie_data[c("facenumber_in_poster", "director_facebook_likes", "durati
 
 
 
-## 4. 머신러닝
+## 2. 머신러닝
 
 ### 1) 다중 선형 회귀(Multiple Linear Regression)
 ```{r}
@@ -295,3 +304,24 @@ importance(mov_model3)
 varImpPlot(mov_model3)
 ```
 
+
+## 3. 결론
+#### IMDB score에 영향력 top3 변수
+#### duration
+#### 감독 이름 , 좋아요 수
+#### 영화 좋아요 수
+```{r}
+movie <- read.csv("movie.csv/USA_movie.csv")
+
+# duration
+ggplot(movie, aes(duration, imdb_score)) +
+  geom_col(col = "#FFCC00")
+
+# 감독 좋아요 수
+ggplot(data = movie, mapping = aes(x = director_facebook_likes, y = imdb_score)) +
+  geom_point(col="#FFCC00")
+
+# 영화 좋아요 수
+ggplot(movie, aes(x=movie_facebook_likes, y=imdb_score, color=title_year)) +
+  geom_point()
+```

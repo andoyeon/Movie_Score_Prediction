@@ -1,9 +1,15 @@
-rm(list=ls())
+library(randomForest)
+set.seed(123)
+mov_model3 <- randomForest(imdb_score ~ ., data = movie, importance = T)
+print(mov_model3)
+importance(mov_model3)
+varImpPlot(mov_model3)
+
 load("data/project/movie.rda")
 # IMDB score에 영향력 top3 변수
-# duration
-# 감독 이름 , 좋아요 수
-# 영화 좋아요 수
+# 1) duration
+# 2) 감독 이름 , 좋아요 수
+# 3) 영화 좋아요 수
 
 search()
 library(ggplot2)
