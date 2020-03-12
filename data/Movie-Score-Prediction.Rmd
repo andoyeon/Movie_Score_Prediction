@@ -15,16 +15,16 @@ knitr::opts_chunk$set(echo = TRUE,comment=NA)
 
 ## 목차
 1. 데이터 분석
-  데이터 전처리, Correlation Heatmap
+   - 데이터 전처리, Correlation Heatmap
 2. 머신러닝
-  다중 선형 회귀, 회귀 트리, 모델 트리, 랜덤 포레스트
+   - 다중 선형 회귀, 회귀 트리, 모델 트리, 랜덤 포레스트
 3. 결론
 
 
 ## 1. 데이터 분석
 ### 데이터 확인
 ```{r}
-USA_movie <- read.csv("movie.csv/USA_movie.csv")
+USA_movie <- read.csv("../movie.csv/USA_movie.csv")
 movie <- USA_movie
 str(movie)
 summary(movie)
@@ -311,7 +311,7 @@ varImpPlot(mov_model3)
 #### 감독 이름 , 좋아요 수
 #### 영화 좋아요 수
 ```{r}
-movie <- read.csv("movie.csv/USA_movie.csv")
+movie <- read.csv("../movie.csv/USA_movie.csv")
 
 # duration
 ggplot(movie, aes(duration, imdb_score)) +
@@ -321,6 +321,7 @@ ggplot(movie, aes(duration, imdb_score)) +
 ggplot(data = movie, mapping = aes(x = director_facebook_likes, y = imdb_score)) +
   geom_point(col="#FFCC00")
 
+load("movie.rda")
 # 영화 좋아요 수
 ggplot(movie, aes(x=movie_facebook_likes, y=imdb_score, color=title_year)) +
   geom_point()
