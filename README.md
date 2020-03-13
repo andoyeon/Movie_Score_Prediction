@@ -12,8 +12,8 @@ Movie_Score_Prediction
 
 
 ### **dataset**
-* IMDB Dataset
-* 출처: <https://www.imdb.com>
+* imdb-5000-movie-dataset
+* 출처: <https://www.kaggle.com/carolzhangdc/imdb-5000-movie-dataset>
 
 
 ### **Model**
