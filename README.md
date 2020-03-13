@@ -17,10 +17,10 @@ Movie_Score_Prediction
 
 
 ### **Model**
-* Multi Linear Regression
+* Multiple Linear Regression
 * Regression Tree
 * Model Tree
-* RandomForest
+* Random Forest Classification
 
 
 ### **Reference**
